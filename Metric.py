@@ -3,6 +3,7 @@ import re
 import os
 import commands
 import subprocess
+from container import Container
 from collections import OrderedDict
 from docker import Client
 class Metric(object):
@@ -29,24 +30,34 @@ class Metric(object):
                 cpuDict[templist[0]] = templist[1]
             dt['cpuAcct'] = cpuDict
         return dt
-    def memStat(self):
+    def memStat(self,id):
+        con = Container()
+        ret = con.getContainerArg(id)
+        dt,dt1 = {},{}
+        dt1[u'MemorySwap'] = ret[u'MemorySwap']
+        dt1[u'Memory'] = ret[u'Memory']
+        dt['memConfig'] = dt1
         memDict = OrderedDict()
-        with open(self.memStat_path)as f:
-            dt = {}
+        with open(self.memStat_path) as f:
             for line in f:
                 m = re.search(r"(rss|swap)\s+(\d+)",line)
                 if m:
                     memDict[m.group(1)] = int(m.group(2))
-            dt['memStat'] = memDict
+            dt['memMetric'] = memDict
         return dt
     def blkio(self):
         blkioDict =  OrderedDict()
+        dt = {}
         with open(self.blkio_path+'blkio.io_wait_time') as f:
-            dt = {}
             for line in f:
                 templist = line.split()
                 blkioDict['io_wait_time'] = {templist[0]:templist[1]}
-            dt['blkioStat'] = blkioDict
+            dt['blkioStat_wait'] = blkioDict
+        with open(self.blkio_path+'blkio.io_queued') as f:
+            for line in f:
+                templist = line.split()
+                blkioDict['io_queued'] = {templist[0]:templist[1]}
+            dt['blkioStat_queue'] = blkioDict
         return dt
     #Get the container net namespace
     def getNetns(self):
@@ -93,12 +104,14 @@ class Metric(object):
         
 if __name__ == '__main__':
     con = Metric()
+    cont = Client()
     id_list = con.runContainerId()
     dt = {}
     for item in id_list:
         con.setFilePath(item)        
-        con.getNetns()
-        dt4 = con.netStat()
-        print dt4
-        dt[item] = [dt4]
+        cont.inspect_container(item)
+       # con.getNetns()
+       # dt4 = con.netStat()
+       # print dt4
+       # dt[item] = [dt4]
     print dt
