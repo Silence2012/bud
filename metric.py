@@ -109,5 +109,6 @@ if __name__ == '__main__':
     dt = {}
     for item in id_list:
         con.setFilePath(item)        
-        cont.inspect_container(item)
+        dt = cont.inspect_container(item)
+        
     print dt

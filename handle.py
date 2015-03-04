@@ -19,4 +19,5 @@ class Handle(object):
 if __name__ == '__main__':
    print "="*80+"start"+"="*80
    obj = Handle()
+   print obj.getMetric()
    print "="*80+"end"+"="*80
