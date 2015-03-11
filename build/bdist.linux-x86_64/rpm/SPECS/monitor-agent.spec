@@ -1,6 +1,7 @@
 %define name monitor-agent
 %define version 0.1.1_dev
 %define unmangled_version 0.1.1-dev
+%define unmangled_version 0.1.1-dev
 %define release 1
 
 Summary: a monitor agent
@@ -19,13 +20,13 @@ Vendor: SimonSun <386488135@qq.com>
 UNKNOWN
 
 %prep
-%setup -n %{name}-%{unmangled_version}
+%setup -n %{name}-%{unmangled_version} -n %{name}-%{unmangled_version}
 
 %build
 python setup.py build
 
 %install
-python setup.py install -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+python setup.py install --single-version-externally-managed -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
 
 %clean
 rm -rf $RPM_BUILD_ROOT
