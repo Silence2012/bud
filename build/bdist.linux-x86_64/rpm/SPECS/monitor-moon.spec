@@ -1,4 +1,4 @@
-%define name monitor-agent
+%define name monitor-moon
 %define version 0.1.2_dev
 %define unmangled_version 0.1.2-dev
 %define unmangled_version 0.1.2-dev
