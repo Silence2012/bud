@@ -5,26 +5,22 @@ from setuptools import setup
 ROOT_DIR = os.path.dirname(__file__)
 SOURCE_DIR = os.path.join(ROOT_DIR)
 
-if sys.version_info[0] == 3:
-    requirements_file = './requirements3.txt'
-else:
-    requirements_file = './requirements.txt'
 
 exec(open('agent/version.py').read())
 
-with open(requirements_file) as requirements_txt:
-    requirements = [line for line in requirements_txt]
 setup(
-name = 'monitor-moon',
+name = 'moon',
 author = 'SimonSun',
 author_email = '386488135@qq.com',
 description = 'a monitor agent',
 version = version,
 packages = ['agent'],
-install_requires=requirements,
-scripts = ['./moon'],
-data_file = [
-('/etc/init.d',['bin/moon']),
+install_requires=['websocket-client==0.11.0',
+'requests==2.2.1',
+'flask==0.10.1'],
+scripts = ['bin/moon'],
+data_files = [
+('/etc/init.d',['moon']),
 ],
 classifiers=[
         'Development Status :: 4 - Beta',
