@@ -5,22 +5,13 @@ import commands
 import subprocess
 from container import Container
 from collections import OrderedDict
-from docker import Client
 class Metric(object):
-    def __init__(self):
-        self.con = Client()
-
-    def runContainerId(self):
-        con_id_list = []
-        for items in self.con.containers():
-            con_id_list.append(items[u'Id'])       
-        return con_id_list
-    def setFilePath(self,container_id):
+    def __init__(self,container_id,cpuacct_path,memStat_path,blkio_path,netStat_path):
         self.container_id = container_id
-        self.cpuacct_path = '/cgroup/cpuacct/lxc/%s/cpuacct.stat' % self.container_id
-        self.memStat_path = '/cgroup/memory/lxc/%s/memory.stat' % self.container_id
-        self.blkio_path = '/cgroup/blkio/lxc/%s/' % self.container_id
-        self.netStat_path = '/cgroup/devices/lxc/%s/' % self.container_id
+        self.cpuacct_path = cpuacct_path
+        self.memStat_path = memStat_path
+        self.blkio_path = blkio_path
+        self.netStat_path = netStat_path
     def cpuAcct(self):
         cpuDict = OrderedDict()
         with open(self.cpuacct_path) as f:
@@ -103,12 +94,12 @@ class Metric(object):
         return netDict 
         
 if __name__ == '__main__':
-    con = Metric()
-    cont = Client()
+    con = Container()
+    data = Metric()
     id_list = con.runContainerId()
     dt = {}
     for item in id_list:
         con.setFilePath(item)        
-        dt = cont.inspect_container(item)
+        dt = con.getContainerArg(item)
         
     print dt
