@@ -20,7 +20,7 @@ install_requires=['websocket-client==0.11.0',
 'tornado==2.2.1'],
 scripts = ['bin/moon'],
 data_files = [
-('/etc/init.d',['moon']),
+('/etc/init.d',['bin/moon']),
 ],
 classifiers=[
         'Development Status :: 4 - Beta',

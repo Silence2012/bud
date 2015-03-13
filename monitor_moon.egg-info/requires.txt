@@ -1,3 +1,0 @@
-websocket-client==0.11.0
-requests==2.2.1
-lask==0.10.1

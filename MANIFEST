@@ -1,9 +1,0 @@
-setup.py
-agent/__init__.py
-agent/container.py
-agent/handle.py
-agent/metric.py
-agent/version.py
-web/__init__.py
-web/flask_web.py
-web/webtornado.py
