@@ -1,4 +1,5 @@
 #!/usr/bin/python
-
+import tornado.ioloop
 from agent import app
-app.run(host='0.0.0.0',port=8888,debug=True)
+app.listen(8888)
+tornado.ioloop.IOLoop.instance().start()

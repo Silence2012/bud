@@ -17,7 +17,7 @@ version = version,
 packages = ['agent'],
 install_requires=['websocket-client==0.11.0',
 'requests==2.2.1',
-'flask==0.10.1'],
+'tornado==2.2.1'],
 scripts = ['bin/moon'],
 data_files = [
 ('/etc/init.d',['moon']),
