@@ -1,0 +1,3 @@
+websocket-client==0.11.0
+requests==2.2.1
+tornado==2.2.1

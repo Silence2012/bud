@@ -21,9 +21,9 @@ class MainHandler(tornado.web.RequestHandler):
         handle =Handle()
         self.write(json.dumps(handle.getMetric()))
 app= tornado.web.Application([
-(r"/",MainHandler),
-(r"/runContainerId",ContainerHandler),
-(r"/getArg",getContainerArg),
+(r"/v1/",MainHandler),
+(r"/v1/runContainerId",ContainerHandler),
+(r"/v1/getArg",getContainerArg),
 ])
 if __name__ == "__main__":
     app.listen(8888)
