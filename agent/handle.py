@@ -3,23 +3,44 @@ import json
 from metric import Metric
 from container import Container
 class Handle(object):
+    def __init__(self):
+        self.con = Container()
+        self.ret = self.con.runContainerId()
+        self.dt,self.dt1,self.dt2,self.dt3,self.dt4 = {},{},{},{},{}
+        for i in self.ret:
+            self.con.setFilePath(i)
+            self.data = Metric(self.con.container_id,self.con.cpuacct_path,self.con.memStat_path,self.con.blkio_path,self.con.netStat_path)
+            self.data.getNetns()
+            self.dt_cpu,self.dt_mem,self.dt_blk,self.dt_net = {},{},{},{}
+            self.dt_cpu['cpuAcct'] = self.data.cpuAcct()
+            self.dt_mem['memStat'] = self.data.memStat(i)
+            self.dt_blk['blkio'] = self.data.blkio()
+            self.dt_net['netStat'] = self.data.netStat()
+            self.dt[i] = [self.dt_cpu,self.dt_mem,self.dt_blk,self.dt_net]
+            self.dt1[i] = [self.dt_cpu]
+            self.dt2[i] = [self.dt_mem]
+            self.dt3[i] = [self.dt_blk]
+            self.dt4[i] = [self.dt_net]
     def getMetric(self):    
-        con = Container()
-        ret = con.runContainerId()
-        dt = {}
-        for i in ret:
-            dt1,dt2,dt3,dt4 = {},{},{},{}
-            con.setFilePath(i)
-            data = Metric(con.container_id,con.cpuacct_path,con.memStat_path,con.blkio_path,con.netStat_path)
-            data.getNetns()
-            dt1['cpuAcct'] = data.cpuAcct()
-            dt2['memStat'] = data.memStat(i)
-            dt3['blkio'] = data.blkio()
-            dt4['netStat'] = data.netStat()
-            dt[i] = [dt1,dt2,dt3,dt4]
-        return dt
+        return self.dt
+    def getCpu(self):
+        return self.dt1
+    def getMem(self):
+        return self.dt2   
+    def getBlk(self):
+        return self.dt3
+    def getNet(self):
+        return self.dt4
 if __name__ == '__main__':
    print "="*80+"start"+"="*80
    obj = Handle()
    print obj.getMetric()
+   print "*"*100
+   print obj.getCpu()
+   print "*"*100
+   print obj.getMem()
+   print "*"*100
+   print obj.getBlk()
+   print "*"*100
+   print obj.getNet()
    print "="*80+"end"+"="*80

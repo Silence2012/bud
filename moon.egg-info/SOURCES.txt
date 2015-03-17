@@ -1,6 +1,7 @@
 setup.py
 agent/__init__.py
 agent/container.py
+agent/debug.py
 agent/handle.py
 agent/metric.py
 agent/version.py
