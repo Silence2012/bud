@@ -56,11 +56,12 @@ class Metric(object):
             tpid = f.readline()
             tpid = tpid[:-1]       
             filename = '/var/run/netns/'+self.container_id
-            if not os.path.exists('/var/run/netns/'):
-                os.mkdir(r'/var/run/netns')
-            if  os.path.exists(filename):
-                (status_file,output_file) = commands.getstatusoutput('rm -rf'+' '+filename) 
-            (status,output) = commands.getstatusoutput('ln -s /proc/'+tpid+'/ns/net'+' '+filename)
+            if tpid:
+                if not os.path.exists('/var/run/netns/'):
+                    os.mkdir(r'/var/run/netns')
+                if not os.path.isfile(filename):
+                    (status_rm,output_rm) = commands.getstatusoutput('rm -rf'+' '+filename)
+                    (status,output) = commands.getstatusoutput('ln -s /proc/'+tpid+'/ns/net'+' '+filename)
     #Get the network value of container with the command ifconfig 
     def netStat(self):
         netDict = {}
