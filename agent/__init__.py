@@ -3,42 +3,41 @@ import tornado.web
 import json
 from handle import Handle
 from container import Container
-handle = Handle()
 class getContainerArg(tornado.web.RequestHandler):
-   # handle = Handle()
     def get(self):
-        con = Container()
-        dt = {}
-        for item in con.runContainerId():
-            ret = con.getContainerArg(item)
-            dt[item]=ret
-        self.write(json.dumps(dt))
+        self.handle = Handle()
+        self.con = Container()
+        self.dt = {}
+        for item in self.con.runContainerId():
+            self.ret = self.con.getContainerArg(item)
+            self.dt[item]= self.ret
+        self.write(json.dumps(self.dt))
 class ContainerHandler(tornado.web.RequestHandler):
-   # handle = Handle()
     def get(self):
-        con = Container()
-        ret_con = con.runContainerId()
-        self.write(json.dumps(ret_con))
+        self.handle = Handle()
+        self.con = Container()
+        self.ret_con = self.con.runContainerId()
+        self.write(json.dumps(self.ret_con))
 class MainHandler(tornado.web.RequestHandler):
-    #handle =Handle()
     def get(self):
-        self.write(json.dumps(handle.getMetric()))
+        self.handle =Handle()
+        self.write(json.dumps(self.handle.getMetric()))
 class getCpu(tornado.web.RequestHandler):
-   # handle =Handle()
     def get(self):
-        self.write(json.dumps(handle.getCpu()))
+        self.handle =Handle()
+        self.write(json.dumps(self.handle.getCpu()))
 class getMem(tornado.web.RequestHandler):
-   # handle = Handle()
     def get(self):
-        self.write(json.dumps(handle.getMem()))
+        self.handle = Handle()
+        self.write(json.dumps(self.handle.getMem()))
 class getBlk(tornado.web.RequestHandler):
-   # handle = Handle()
     def get(self):
-        self.write(json.dumps(handle.getBlk()))
+        self.handle = Handle()
+        self.write(json.dumps(self.handle.getBlk()))
 class getNet(tornado.web.RequestHandler):
-   # handle = Handle()
     def get(self):
-        self.write(json.dumps(handle.getNet()))
+        self.handle = Handle()
+        self.write(json.dumps(self.handle.getNet()))
 app= tornado.web.Application([
 (r"/v1/",MainHandler),
 (r"/v1/runContainerId",ContainerHandler),
