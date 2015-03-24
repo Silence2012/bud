@@ -15,11 +15,12 @@ class Cpuinfo(object):
                     if not line.strip():
                         self.cpuinfo['proc%s' % self.cpuno] = self.procinfo
                         self.cpuno +=1
+                        self.procinfo = {}
                     else:
                         if len(line.split(':')) == 2:
-                            self.cpuinfo[line.split(':')[0].strip()] = line.split(':')[1].strip()
+                            self.procinfo[line.split(':')[0].strip()] = line.split(':')[1].strip()
                         else :
-                            self.cpuinfo[line.split(":")[0].strip()] = ''
+                            self.procinfo[line.split(":")[0].strip()] = ''
         except Exception,e:
             print "Unexcept error :"
             print e
@@ -27,6 +28,7 @@ class Cpuinfo(object):
             return self.cpuinfo
 if __name__ == "__main__":
     ins = Cpuinfo()
+    print ins.getData()
 
                     
 
