@@ -3,7 +3,7 @@ import tornado.web
 import json
 from container.handle import Handle
 from container.container import Container
-from host.cpu import Cpuinfo
+from host.host import Hostinfo
 class getContainerArg(tornado.web.RequestHandler):
     def get(self):
         self.handle = Handle()
@@ -54,9 +54,15 @@ class getbyIdMetric(tornado.web.RequestHandler):
         self.write(json.dumps(ret))
 class getHost(tornado.web.RequestHandler):
     def get (self,name):
-        self.ins = Cpuinfo()
+        self.ins = Hostinfo()
         if name == "cpu":
-            ret = self.ins.getData()
+            ret = self.ins.getCpu()
+        elif name == "mem":
+            ret = self.ins.getMem() 
+        elif name == "net":
+            ret = self.ins.getNet()
+        elif name == "disk":
+            ret = self.ins.getDisk()
         else :
             ret = "Waiting for a moment "
         self.write(json.dumps(ret))
