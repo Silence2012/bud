@@ -1,13 +1,21 @@
 README<br>
 =====
 2015.3.13
-1.GET http://$IP:8888/v1                  return all arguments of the running containers on this host
-2.GET http://$IP:8888/v1/runContainerId    return the Id value of the running containers
-3.GET http://$IP:8888/v1/getArg            return  the 'Config' option of the running containers
-4.GET http://$IP:8888/v1/container/cpu   return the cpu metrics  of the containers 
-5.GET http://$IP:8888/v1/container/mem   retrun the memory metrics of the containers
-6.GET http://$IP:8888/v1/container/blkio return the blkio metrics of the containers
-7.GET http://$IP:8888/v1/container/net   return the net metrics of the containers
+v1/container/metrics	 返回节点上所有container的 metrics
+v1/container/cpu	返回节点上所有container的cpu的metrics
+v1/container/${container id}/cpu	返回节点上指定container id的cpu的metrics
+v1/container/mem	返回节点上所有container的mem的metrics
+v1/container/${container id}/mem	返回节点上指定container id的mem的metrics
+v1/container/blkio	返回节点上所有container的blkio的metrics
+v1/container/${container id}/blkio	返回节点上指定container id的blkio的metrics
+v1/container/net	返回节点上所有container的net的metrics
+v1/container/${container id}/net	返回节点上指定container id的net的metrics
+v1/host/cpu	返回host节点上的cpu的metrics
+v1/host/mem	返回host节点上的mem的metrics
+v1/host/net	返回host节点上的net的metrics
+v1/host/disk	返回host节点上的disk的metrics
+v1/containers	返回节点上所有的container id
+v1/container/${container id}/arg	返回节点上指定container id 的配置参数
 #agent 0.1.1 rc1<br>
 
 ##1.scrape the metric of the cpuacct mem blkio netstat<br>
