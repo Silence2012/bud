@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
-from setuptools import setup
+from setuptools import setup,find_packages
 ROOT_DIR = os.path.dirname(__file__)
 SOURCE_DIR = os.path.join(ROOT_DIR)
 
@@ -14,7 +14,8 @@ author = 'SimonSun',
 author_email = '386488135@qq.com',
 description = 'a monitor agent',
 version = version,
-packages = ['agent'],
+#packages = ['agent'],
+packages = find_packages(),
 install_requires=['websocket-client==0.11.0',
 'requests==2.2.1',
 'tornado==2.2.1'],

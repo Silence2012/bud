@@ -10,7 +10,7 @@ for i in lt:
     try :
     #    with open(filename) as f:
     #        pass
-    os.file(filename)
+        os.file(filename)
     except Exception,e:
         print 'with an error %s',e
         raise e

@@ -1,7 +1,7 @@
 %define name moon
-%define version 0.1.2_dev
-%define unmangled_version 0.1.2-dev
-%define unmangled_version 0.1.2-dev
+%define version 0.1.5_dev
+%define unmangled_version 0.1.5-dev
+%define unmangled_version 0.1.5-dev
 %define release 1
 
 Summary: a monitor agent
