@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import psutil as p
 from collections import OrderedDict
 class Hostinfo(object):
     ''' Return the information in /proc/cpuinfo 
@@ -8,6 +9,32 @@ class Hostinfo(object):
         self.cpuinfo = OrderedDict()
         self.procinfo = OrderedDict()
         self.cpuno = 0
+
+#   get the cpu percent used with psutil
+    def getpCpuPercent(self):
+        self.ret = p.cpu.percent(interval=1,percpu=True)
+        return {'cpupercent':self.ret}
+
+#   get the mem used with psutil          
+    def getpMem(self):
+        self.ret_virt = p.virtual_memory()
+        self.ret_swap = p.swap_memory()
+        return {'virtual_mem':self.ret_virt,'swap_mem':self.ret_swap}
+
+#   get the disk information used with psutil
+    def getpDisk(self):
+        self.disk_part = p.disk_partitions()
+        self.disk_usage = p.disk_usage('/')
+        self.disk_io_counters = p.disk_io_counters(perdisk=False)
+        return {'disk_part':self.disk_part,'disk_usage':self.disk_usage,'disk_io_counters':self.disk_io_counters}
+
+#   get the network information used with psutil
+    def getpNet(self):
+        self.net_io_counters = p.net_io_counters(pernic=True)
+        self.net_connections = p.net_connections()
+        return {'net_io_counters':self.net_io_counters,"net_connections":self.net_connections}
+
+#   get the cpu memssage from the interface of '/proc/cpuinfo'
     def getCpu(self):
         try :
             with open('/proc/cpuinfo') as f:
@@ -72,7 +99,8 @@ class Hostinfo(object):
   
 if __name__ == "__main__":
     ins = Hostinfo()
-    print ins.getDisk()
+    print ins.getpMem()
+   # print ins.getDisk()
    # print ins.getCpu()
    # print "*"*80
    # print ins.getMem()
