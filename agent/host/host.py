@@ -9,6 +9,9 @@ class Hostinfo(object):
         self.cpuinfo = OrderedDict()
         self.procinfo = OrderedDict()
         self.cpuno = 0
+#   get the other system info
+    def getOsinfo(self):
+        return {'users':p.users(),'boot_time':p.boot_time()}
 
 #   get the cpu percent used with psutil
     def getpCpuPercent(self):
