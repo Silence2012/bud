@@ -86,6 +86,18 @@ class getHost(tornado.web.RequestHandler):
             ret = self.ins.getNet()
         elif name == "disk":
             ret = self.ins.getDisk()
+        elif name == "getOsinfo":
+            ret = self.ins.getOsinfo()
+        elif name == "getpCpuPercent":
+            ret = self.ins.getOsinfo()
+        elif name == "getpDisk":
+            ret = self.ins.getpDisk()
+        elif name == "getpMem":
+            ret = self.ins.getMem
+        elif name == "getpNet":
+            ret = self.ins.getpNet()
+        elif name == "getCpu":
+            ret = self.ins.getCpu()
         else :
             ret = "Waiting for a moment "
         self.write(json.dumps(ret))
